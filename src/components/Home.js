@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Button, Container, Content, Header } from "native-base";
+import { TouchableOpacity } from 'react-native'
+import { Button, Container, Content, Header, Body, Title, Right, Icon, Left } from "native-base";
 import { Actions } from "react-native-router-flux";
 import books from "../static/data";
 import BookShelf from "./BookShelf";
@@ -41,14 +42,26 @@ export default class Home extends Component {
     // });
     // this.setState({currentlyReading: newState.currentlyReading, wantToRead: newState.wantToRead, read: newState.read})
   }
-  onPress = () => {
-    Actions.search();
+  onPressSearch = (items) => {
+    Actions.search({items});
   };
   render() {
     return (
       <Container>
+        <Header>
+          {/* <Left /> */}
+          <Body style={{alignItems: "center"}}>
+            <Title style={{alignSelf: "center"}}>Book Shelf</Title>
+          </Body>
+          <Right>
+          <TouchableOpacity onPress={() => Actions.search({books: this.state.books})}>
+              <Icon name="search"  style={{color: "white"}}/>
+            </TouchableOpacity>
+          </Right></Header>
         <Content>
-         <BookShelf books={this.state.books} title="read"/>
+         <BookShelf books={this.state.books} title="Currently Reading"/>
+         <BookShelf books={this.state.books} title="Want To Read"/>
+         <BookShelf books={this.state.books} title="Read"/>
         </Content>
       </Container>
           

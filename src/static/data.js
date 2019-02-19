@@ -15,7 +15,7 @@ export default books = [
   },
   {
       id: 3,
-      title: '1984',
+      title: 'of 1984',
       author: 'George Orwell',
       thumbnail: 'https://covers.openlibrary.org/w/id/7222246-M.jpg',
       category: 'wantToRead'

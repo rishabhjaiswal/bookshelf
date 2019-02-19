@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Image, TouchableOpacity } from "react-native";
+import { Image, TouchableOpacity, Dimensions, StyleSheet } from "react-native";
 import {
   Container,
   Content,
@@ -15,11 +15,13 @@ import {
   Right
 } from "native-base";
 
+const { height, widht } = Dimensions.get("window");
+
 const Book = props => {
   console.log("------------ inside book------------", props);
   return (
     // <Text>hello book</Text>
-    <Card>
+    <Card style={styles.bookCard}>
       <CardItem>
         <Left>
           <Thumbnail
@@ -34,27 +36,40 @@ const Book = props => {
           </Body>
         </Left>
       </CardItem>
-      <CardItem cardBody>
+      <CardItem cardBody padder>
         <Image
           source={{
             uri: props.book.thumbnail
           }}
-          style={{ height: 200, width: null, flex: 1 }}
+          style={{ flex: 1, height: 100, padding:15 }}
         />
       </CardItem>
-      <CardItem>
+      {/* <CardItem>
         <Text> hwllo woeld</Text>
-      </CardItem>
+      </CardItem> */}
       <CardItem>
-        <Right>
-          <TouchableOpacity>
+        <Body>
+          <Text>1,926 stars</Text>
+        </Body>
+        <Right  style={styles.buttonStyle}>
+          <TouchableOpacity >
             <Icon name="logo-github" />
-            <Text>1,926 stars</Text>
+            
           </TouchableOpacity>
         </Right>
       </CardItem>
     </Card>
   );
 };
+
+const styles = StyleSheet.create({
+  buttonStyle: {
+    // flex: 0,
+    position: "absolute", bottom: 10, right: 10
+  }, 
+  bookCard: {
+    height: height / 2.5, borderRadius: 5 
+  }
+})
 
 export default Book;
