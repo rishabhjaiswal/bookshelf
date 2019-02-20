@@ -1,5 +1,11 @@
 import React, { Component } from "react";
-import { Text, View, TouchableOpacity, StyleSheet, FlatList  } from "react-native";
+import {
+  Text,
+  View,
+  TouchableOpacity,
+  StyleSheet,
+  FlatList
+} from "react-native";
 import {
   Header,
   Container,
@@ -12,7 +18,7 @@ import {
   Title
 } from "native-base";
 import SearchBar from "react-native-searchbar";
-import Book from './Book'
+import Book from "./Book";
 import { Actions } from "react-native-router-flux";
 
 export default class Search extends Component {
@@ -39,8 +45,8 @@ export default class Search extends Component {
   }
 
   onPressHome = () => {
-    Actions.home()
-  }
+    Actions.home();
+  };
   render() {
     console.log(("++++++++++++++++++++", this.props.books));
     return (
@@ -48,7 +54,7 @@ export default class Search extends Component {
         <Header>
           <Left>
             <TouchableOpacity onPress={this.onPressHome}>
-              <Icon name="home" style={{ color: "white" }}  />
+              <Icon name="home" style={{ color: "white" }} />
             </TouchableOpacity>
           </Left>
           <Body>
