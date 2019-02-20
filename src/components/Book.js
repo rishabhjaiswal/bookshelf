@@ -6,7 +6,7 @@ import {
   StyleSheet,
   Picker,
   Modal,
-  TouchableHighlight
+  Alert
 } from "react-native";
 import {
   Container,
@@ -132,9 +132,7 @@ class Book extends Component {
                 backgroundColor: "#3F51B5"
               }}
             >
-              <Text style={{ fontSize: 30, color: "white", paddingTop: 10 }}>
-                ^
-              </Text>
+              <Icon type="MaterialCommunityIcons" name="account-edit" style={{color: "white"}}/>
             </View>
           </CardItem>
           <CardItem>

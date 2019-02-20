@@ -70,9 +70,12 @@ class Home extends Component {
           <BookShelf
             books={this.props.currentlyReading}
             title="Currently Reading"
+            style={{marginBottom: 10}}
           />
-          <BookShelf books={this.props.wantToRead} title="Want To Read" />
-          <BookShelf books={this.props.read} title="Read" />
+          <BookShelf books={this.props.wantToRead} title="Want To Read" 
+            style={{marginBottom: 10}}/>
+          <BookShelf books={this.props.read} title="Read" 
+            style={{marginBottom: 10}}/>
         </Content>
         <View
           style={{
