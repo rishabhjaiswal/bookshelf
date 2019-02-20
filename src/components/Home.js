@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { TouchableOpacity } from 'react-native'
+import { TouchableOpacity, View, Text } from 'react-native'
 import { Button, Container, Content, Header, Body, Title, Right, Icon, Left } from "native-base";
 import { Actions } from "react-native-router-flux";
 import books from "../static/data";
@@ -62,7 +62,13 @@ export default class Home extends Component {
          <BookShelf books={this.state.books} title="Currently Reading"/>
          <BookShelf books={this.state.books} title="Want To Read"/>
          <BookShelf books={this.state.books} title="Read"/>
-        </Content>
+         
+        </Content> 
+        <View style={{position: "absolute", right: 20, bottom: 20, zIndex: 5, borderColor: "black", height: 60, width: 60, borderRadius: 30, alignItems: "center", justifyContent: "center", backgroundColor: "#3F51B5" }}>
+          <TouchableOpacity onPress={() => Actions.addBooks()}>
+            <Text style={{fontSize: 50, color: "white" }}>+</Text>
+          </TouchableOpacity>
+         </View>
       </Container>
           
     );

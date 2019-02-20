@@ -13,13 +13,13 @@ import {
 } from "native-base";
 import SearchBar from "react-native-searchbar";
 import Book from './Book'
+import { Actions } from "react-native-router-flux";
 
 export default class Search extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      items: this.props.books,
-      results: []
+      results: this.props.books
     };
     this._handleResults = this._handleResults.bind(this);
   }
@@ -33,8 +33,13 @@ export default class Search extends Component {
   };
 
   keyExtractor = (item, index) => item.id.toString();
+
   _handleResults(results) {
     this.setState({ results });
+  }
+
+  onPressHome = () => {
+    Actions.home()
   }
   render() {
     console.log(("++++++++++++++++++++", this.props.books));
@@ -42,9 +47,9 @@ export default class Search extends Component {
       <Container>
         <Header>
           <Left>
-            <Button transparent>
-              <Icon name="home" />
-            </Button>
+            <TouchableOpacity onPress={this.onPressHome}>
+              <Icon name="home" style={{ color: "white" }}  />
+            </TouchableOpacity>
           </Left>
           <Body>
             <Title>Search Books</Title>
@@ -69,9 +74,10 @@ export default class Search extends Component {
             </View>
             <SearchBar
               ref={ref => (this.searchBar = ref)}
-              data={this.state.items}
+              data={this.props.books}
               handleResults={this._handleResults}
               showOnLoad
+              allDataOnEmptySearch
             />
           </View>
         </Content>
