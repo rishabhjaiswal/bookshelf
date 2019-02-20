@@ -3,6 +3,7 @@ import { Router, Scene, Actions } from 'react-native-router-flux'
 import Home from './src/components/Home'
 import Search from './src/components/Search'
 import AddBooks from "./src/components/AddBooks";
+import SplashScreen from './src/components/SplashScreen'
 
 backMainScene = false
 
@@ -27,10 +28,10 @@ export default class AppNavigator extends Component {
           }}
           >
         <Scene>
-          <Scene key="home" component={Home} title="Home" initial={true} hideNavBar="true"/>
+          <Scene key="home" component={Home} title="Home" initial={false} hideNavBar="true"/>
           <Scene key="search" component={Search} title="Search"  initial={false}  hideNavBar="true" />
           <Scene key="addBooks" component={AddBooks} title="AddBooks" initial={false} hideNavBar="true" />
-          {/* <Scene key="signUp" component={SignUp} title="SignUp" initial={true} hideNavBar="true" /> */}
+          <Scene key="splashScreen" component={SplashScreen} title="SplashScreen" initial={true} hideNavBar="true" />
         </Scene>
       </Router>
     );

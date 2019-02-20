@@ -15,7 +15,6 @@ import {
 import { Actions } from "react-native-router-flux";
 import books from "../static/data";
 import BookShelf from "./BookShelf";
-import firebase from "../actions/Firebase";
 import { fetchBooks } from "../actions/bookAction";
 import { connect } from "react-redux";
 
@@ -28,23 +27,29 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    let newState = {
-      currentlyReading: [],
-      wantToRead: [],
-      read: []
-    };
     this.readUserData();
   }
+
   readUserData = () => {
     this.props.fetchBooks();
   };
+
   onPressSearch = items => {
     Actions.search({ items });
   };
 
   render() {
-    if (this.props.isFetching){
-      return <Spinner  color="#3F51B5" style={{alignContent: "center", justifyContent: "center", marginTop: 200}}/>;
+    if (this.props.isFetching) {
+      return (
+        <Spinner
+          color="#3F51B5"
+          style={{
+            alignContent: "center",
+            justifyContent: "center",
+            marginTop: 200
+          }}
+        />
+      );
     }
     return (
       <Container>
@@ -94,7 +99,6 @@ class Home extends Component {
 }
 
 const mapStateToProps = (state, props) => {
-  console.log("in mapStatetoporps===========", state.books);
   return {
     books: state.books.books,
     currentlyReading: state.books.currentlyReading,

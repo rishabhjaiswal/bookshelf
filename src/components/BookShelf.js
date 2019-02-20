@@ -5,7 +5,6 @@ import { Container, Content } from "native-base";
 const { height, width } = Dimensions.get("window");
 
 const BookShelf = props => {
-  console.log("...............kinside BookShelf...........", props.books);
   renderItem = ({ item }) => {
     return (
       <View style={{ flex: 1, margin: 5 }}>
@@ -14,7 +13,7 @@ const BookShelf = props => {
     );
   };
 
-  keyExtractor = (item, index) => item.id.toString();
+  keyExtractor = (item, index) => index;
 
   return (
     <View style={styles.container}>

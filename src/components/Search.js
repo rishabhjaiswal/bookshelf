@@ -38,7 +38,7 @@ export default class Search extends Component {
     );
   };
 
-  keyExtractor = (item, index) => item.id.toString();
+  keyExtractor = (item, index) => index;
 
   _handleResults(results) {
     this.setState({ results });
@@ -47,8 +47,8 @@ export default class Search extends Component {
   onPressHome = () => {
     Actions.home();
   };
+
   render() {
-    console.log(("++++++++++++++++++++", this.props.books));
     return (
       <Container>
         <Header>

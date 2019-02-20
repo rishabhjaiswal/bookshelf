@@ -20,6 +20,9 @@ import {
   Toast
 } from "native-base";
 import { Actions } from "react-native-router-flux";
+import { addBooks } from "../actions/bookAction";
+import { connect } from "react-redux";
+
 const styles = StyleSheet.create({
   container: {
     flex: 1
@@ -33,7 +36,7 @@ class AddBooks extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selected: "key1",
+      selected: "read",
       title: "",
       author: "",
       image: "https://facebook.github.io/react-native/docs/assets/favicon.png"
@@ -44,6 +47,14 @@ class AddBooks extends Component {
     // Alert.alert("Add Book clicked");
     if (this.state.author === "" || this.state.title === "")
       Toast.show({ text: "Please submit a valid author or title" });
+
+    const book = {
+      author: this.state.author,
+      title: this.state.title,
+      category: this.state.selected,
+      thumbnail: this.state.image
+    };
+    this.props.addBooks(book);
   };
 
   onValueChange(value) {
@@ -52,7 +63,6 @@ class AddBooks extends Component {
     });
   }
   render() {
-    console.log("state changed : ", this.state.title, "  ", this.state.author);
     return (
       <Container style={styles.container}>
         <Header>
@@ -100,9 +110,9 @@ class AddBooks extends Component {
               selectedValue={this.state.selected}
               onValueChange={this.onValueChange.bind(this)}
             >
-              <Picker.Item label="Read" value="key0" />
-              <Picker.Item label="Want To Read" value="key1" />
-              <Picker.Item label="Currently Reading" value="key2" />
+              <Picker.Item label="Read" value="read" />
+              <Picker.Item label="Want To Read" value="wantToRead" />
+              <Picker.Item label="Currently Reading" value="currentlyReading" />
             </Picker>
           </Form>
         </Content>
@@ -122,4 +132,15 @@ class AddBooks extends Component {
   }
 }
 
-export default AddBooks;
+const mapStateToProps = (state, props) => {
+  return {};
+};
+
+const mapActionsToProps = dispatch => ({
+  addBooks: book => addBooks(book)(dispatch)
+});
+
+export default connect(
+  mapStateToProps,
+  mapActionsToProps
+)(AddBooks);

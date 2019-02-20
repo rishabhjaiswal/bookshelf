@@ -24,6 +24,8 @@ import {
   Form,
   ActionSheet
 } from "native-base";
+import { updateBooks } from "../actions/bookAction";
+import { connect } from "react-redux";
 
 const { height, widht } = Dimensions.get("window");
 
@@ -31,7 +33,7 @@ class Book extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selected: "Want To Read",
+      selected: "wantToRead",
       modalVisible: false
     };
     // this.onPressButton = this.onPressButton.bind(this);
@@ -42,7 +44,6 @@ class Book extends Component {
     });
   }
   renderPicker = () => {
-    console.log("state changed ro submit", this.state.selected);
     return (
       <Form style={{ marginTop: 15, marginTop: 10, flex: 1 }}>
         <Picker
@@ -51,18 +52,34 @@ class Book extends Component {
           selectedValue={this.state.selected}
           onValueChange={this.onValueChange.bind(this)}
         >
-          <Picker.Item label="Read" value="Read" />
-          <Picker.Item label="Want To Read" value="Want To Read" />
-          <Picker.Item label="Currently Reading" value="Currently Reading" />
+          <Picker.Item label="Want To Read" value="wantToRead" />
+          <Picker.Item label="Read" value="read" />
+          <Picker.Item label="Currently Reading" value="currentlyReading" />
         </Picker>
       </Form>
     );
   };
+
   setModalVisible(visible) {
     this.setState({ modalVisible: visible });
   }
+
+  onSubmit(index) {
+    const data = {
+      id: index,
+      category: this.state.selected
+    };
+    this.props.updateBooks(data);
+  }
+
   render() {
-    console.log("------------ inside book------------", this.props);
+    console.log(
+      "=====================",
+      this.props.isUpdating,
+      "........",
+      this.props.success
+    );
+    const index = this.props.book.index;
     return (
       // <Text>hello book</Text>
       <TouchableOpacity
@@ -115,7 +132,9 @@ class Book extends Component {
                 backgroundColor: "#3F51B5"
               }}
             >
-              <Text style={{ fontSize: 30, color: "white" }}>+</Text>
+              <Text style={{ fontSize: 30, color: "white", paddingTop: 10 }}>
+                ^
+              </Text>
             </View>
           </CardItem>
           <CardItem>
@@ -138,22 +157,20 @@ class Book extends Component {
                 <Text>Hide Modal</Text>
               </TouchableHighlight> */}
                   {this.renderPicker()}
-                  <TouchableHighlight
+                  <Button
                     style={{
                       position: "absolute",
                       top: 200,
                       alignSelf: "center"
                     }}
-                    onPress={() => {
-                      this.setModalVisible(!this.state.modalVisible);
-                    }}
+                    onPress={() => this.onSubmit(index)}
                   >
                     <Text>Submit</Text>
-                  </TouchableHighlight>
-                  <TouchableHighlight
+                  </Button>
+                  <Button
                     style={{
                       position: "absolute",
-                      top: 250,
+                      top: 300,
                       alignSelf: "center"
                     }}
                     onPress={() => {
@@ -161,7 +178,7 @@ class Book extends Component {
                     }}
                   >
                     <Text>Cancel</Text>
-                  </TouchableHighlight>
+                  </Button>
                 </View>
               </View>
             </Modal>
@@ -186,4 +203,18 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Book;
+const mapStateToProps = (state, props) => {
+  return {
+    isUpdating: state.books.isUpdating,
+    success: state.books.success
+  };
+};
+
+const mapActionsToProps = dispatch => ({
+  updateBooks: data => updateBooks(data)(dispatch)
+});
+
+export default connect(
+  mapStateToProps,
+  mapActionsToProps
+)(Book);
